@@ -1,0 +1,1 @@
+Now show the contents of prompt.txt in a new tab (assume markdown)
