@@ -1,10 +1,25 @@
 package org.example
 
+import com.intellij.openapi.progress.ProgressManager
 import com.intellij.openapi.project.Project
 import com.intellij.openapi.vfs.VirtualFile
 import git4idea.commands.Git
 import git4idea.commands.GitCommand
+import git4idea.commands.GitCommandResult
 import git4idea.commands.GitLineHandler
+
+private fun runGit(handler: GitLineHandler, proj: Project): GitCommandResult? {
+    val obj = object : Runnable {
+        var result: GitCommandResult? = null
+
+        override fun run(): Unit {
+            result = Git.getInstance().runCommand(handler)
+        }
+    }
+    ProgressManager.getInstance().runProcessWithProgressSynchronously(
+        obj, "Running git show for Entire checkpoint", true, proj)
+    return obj.result
+}
 
 fun getCheckpointPrompt(proj: Project, root: VirtualFile, checkpointId: String): String? {
     val shard1 = checkpointId.take(2)
@@ -17,7 +32,7 @@ fun getCheckpointPrompt(proj: Project, root: VirtualFile, checkpointId: String):
         setStdoutSuppressed(false)
         addParameters("$ref:$dirPath")
     }
-    val listResult = Git.getInstance().runCommand(listHandler)
+    val listResult = runGit(listHandler, proj) ?: return null
     if (!listResult.success()) return null
 
     val intSubdir = listResult.output
@@ -31,7 +46,7 @@ fun getCheckpointPrompt(proj: Project, root: VirtualFile, checkpointId: String):
         setStdoutSuppressed(false)
         addParameters("$ref:$dirPath/$intSubdir/prompt.txt")
     }
-    val showResult = Git.getInstance().runCommand(showHandler)
+    val showResult = runGit(showHandler, proj) ?: return null
     if (!showResult.success()) return null
 
     return showResult.output.joinToString("\n")
@@ -48,7 +63,7 @@ fun getCheckpointId(proj: Project, root: VirtualFile, hash: String): String? {
         )
     }
 
-    val result = Git.getInstance().runCommand(handler)
+    val result = runGit(handler, proj) ?: return null
     if (!result.success()) return null
 
     return result.output
