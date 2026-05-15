@@ -1,0 +1,47 @@
+{
+  "cli_version": "0.6.1",
+  "checkpoint_id": "8837aa352e12",
+  "session_id": "73438444-6131-4010-ab20-ea8037596d51",
+  "strategy": "manual-commit",
+  "created_at": "2026-05-15T21:26:14.316330607Z",
+  "branch": "master",
+  "checkpoints_count": 1,
+  "files_touched": [
+    "src/main/kotlin/EntireCheckpointView.kt",
+    "src/main/kotlin/GitTrailers.kt"
+  ],
+  "agent": "Claude Code",
+  "model": "claude-sonnet-4-6",
+  "turn_id": "b3a39162ec3b",
+  "token_usage": {
+    "input_tokens": 8,
+    "cache_creation_tokens": 11333,
+    "cache_read_tokens": 110464,
+    "output_tokens": 3457,
+    "api_call_count": 6
+  },
+  "session_metrics": {
+    "turn_count": 1
+  },
+  "initial_attribution": {
+    "calculated_at": "2026-05-15T21:26:14.31192061Z",
+    "agent_lines": 32,
+    "agent_removed": 0,
+    "human_added": 0,
+    "human_modified": 0,
+    "human_removed": 0,
+    "total_committed": 32,
+    "total_lines_changed": 32,
+    "agent_percentage": 100,
+    "metric_version": 2
+  },
+  "prompt_attributions": [
+    {
+      "checkpoint_number": 1,
+      "user_lines_added": 0,
+      "user_lines_removed": 0,
+      "agent_lines_added": 0,
+      "agent_lines_removed": 0
+    }
+  ]
+}

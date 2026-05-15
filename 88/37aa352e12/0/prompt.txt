@@ -1,0 +1,1 @@
+In the `EntireCheckpointView` action, take the already-retrieved Entire checkpoint ID and use it to read the file `prompt.txt` in the first integer-named subdirectory of the directory named like that ID, but sharded (`id[:2]/id[2:]`), from the `entire/checkpoints/v1` branch. Use `git show` via `GitLineHandler` for this (reference `GitTrailers.kt`).
